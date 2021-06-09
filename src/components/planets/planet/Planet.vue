@@ -8,11 +8,11 @@
       </div>
     </div>
     <div
-      v-for="o in [rotationPeriod, climate, gravity, created, url]"
-      :key="o"
+      v-for="(value, key) in {'Rotation period': rotationPeriod, 'Climate': climate, 'Gravity': gravity, 'Created':created, 'Url':url}"
+      :key="key"
       class="text item"
     >
-      {{ o }}
+      {{ key }} - {{value}}
     </div>
   </el-card>
 </template>
@@ -44,10 +44,8 @@ export default {
         this.climate === item
       )
       if (commons.length) {
-        console.log(commons)
         return planetImages[commons[0]]
       } else {
-        console.log(this.climate.split(','))
         return 'earth.svg'
       }
     }
@@ -59,10 +57,10 @@ export default {
 .box-card {
   border-radius: 0;
   background: $background;
-  color: white;
+  color: $text-color;
 }
 .planet-header {
-  margin: 5px 0 10px 0;
+  margin: 5px 0 25px 0;
   display: flex;
   flex-direction: column;
   &__title {
