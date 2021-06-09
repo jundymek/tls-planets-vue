@@ -1,9 +1,11 @@
 <template>
   <div>
     <h1 class="title">Recruitment task - planets</h1>
-    <div v-for="planet in planets" :key="planet.name">
-      <Planet :planet="planet"/>
-    </div>
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="12" :md="8" v-for="planet in planets" :key="planet.name">
+        <Planet :planet="planet" />
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -19,10 +21,14 @@ export default {
     }
   },
   async mounted () {
-    axios.get('https://swapi.dev/api/planets/').then(response => {
-      console.log(response.data.results)
-      this.planets = response.data.results
-    })
+    try {
+      const response = await axios.get('https://swapi.dev/api/planets/')
+      if (response.status === 200) {
+        this.planets = response.data.results
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>
@@ -31,4 +37,10 @@ export default {
 .title {
   color: red;
 }
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.el-col {
+    padding: 10px 0;
+  }
 </style>

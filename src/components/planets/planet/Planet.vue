@@ -1,12 +1,19 @@
 <template>
-  <div>
-    <p>{{ name }}</p>
-    <p>{{ rotationPeriod }}</p>
-    <p>{{ climate }}</p>
-    <p>{{ gravity }}</p>
-    <p>{{ created }}</p>
-    <p>{{ url }}</p>
-  </div>
+  <el-card class="box-card">
+    <div slot="header" class="clearfix">
+      <span>{{ name }}</span>
+      <el-button style="float: right; padding: 3px 0" type="text"
+        >Operation button</el-button
+      >
+    </div>
+    <div
+      v-for="o in [rotationPeriod, climate, gravity, created, url]"
+      :key="o"
+      class="text item"
+    >
+      {{  o }}
+    </div>
+  </el-card>
 </template>
 
 <script>

@@ -4,11 +4,18 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  padding: 0 10px;
+
+}
+
+body {
+  background: $background;
+  margin: 0;
+  padding: 0;
 }
 </style>
