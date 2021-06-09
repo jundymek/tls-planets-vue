@@ -10,12 +10,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0 10px;
-
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 body {
-  background: $background;
+  background: $background-color;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 </style>

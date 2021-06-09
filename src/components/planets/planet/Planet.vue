@@ -1,19 +1,35 @@
 <template>
   <el-card class="box-card">
     <div class="planet-header">
-      <h2 class="planet-header__title" :style="{'color': styles.color}">{{ name }}</h2>
+      <h2 class="planet-header__title" :style="{ color: styles.color }">
+        {{ name }}
+      </h2>
       <p class="planet-header__subtitle">{{ climate }} planet</p>
-      <div class="planet-image-wrapper" :style="{'border-color': styles.color}">
-        <div class="planet-image" :style="{'background-image': 'url(' + require(`@/assets/images/${styles.image}`) + ')'}"></div>
-      </div>
     </div>
-    <div
-      v-for="(value, key) in {'Rotation period': rotationPeriod, 'Climate': climate, 'Gravity': gravity, 'Created':created, 'Url':url}"
-      :key="key"
-      class="text item"
-    >
-      {{ key }} - <span :style="{'color': styles.color}">{{value}}</span>
+    <div class="planet-image-wrapper" :style="{ 'border-color': styles.color }">
+      <div
+        class="planet-image"
+        :style="{
+          'background-image':
+            'url(' + require(`@/assets/images/${styles.image}`) + ')',
+        }"
+      ></div>
     </div>
+    <ul class="planet-data">
+      <li
+        v-for="(value, key) in {
+          'Rotation period': rotationPeriod,
+          Climate: climate,
+          Gravity: gravity,
+          Created: created,
+        }"
+        :key="key"
+        class="text item"
+      >
+        {{ key }} - <span :style="{ color: styles.color }">{{ value }}</span>
+      </li>
+      <li class="text item">Url: <a :href="url" class="planet-data__url" :style="{ color: styles.color }">{{url}}</a></li>
+    </ul>
   </el-card>
 </template>
 
@@ -33,8 +49,8 @@ export default {
   },
   computed: {
     styles: function () {
-      const commons = Object.keys(planetStyles).filter((item) =>
-        this.climate === item
+      const commons = Object.keys(planetStyles).filter(
+        (item) => this.climate === item
       )
       if (commons.length) {
         return planetStyles[commons[0]]
@@ -47,13 +63,22 @@ export default {
 </script>
 
 <style lang="scss">
-.box-card {
+.el-card {
   border-radius: 0;
-  background: $background;
+  background: $background-color;
   color: $text-color;
+  height: 100%;
+  min-height: 450px;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 410px;
+  }
 }
 .planet-header {
-  margin: 5px 0 25px 0;
+  margin: 0 0 25px 0;
   display: flex;
   flex-direction: column;
   &__title {
@@ -61,9 +86,10 @@ export default {
   }
   &__subtitle {
     margin: 0px;
-    font-size: 10px;
+    font-size: 12px;
   }
 }
+
 .planet-image {
   width: 120%;
   height: 120%;
@@ -77,6 +103,7 @@ export default {
   width: 160px;
   height: 160px;
   display: flex;
+  margin-top: -40px;
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -85,5 +112,17 @@ export default {
   border: 8px solid rgb(83, 78, 78);
   overflow: hidden;
   position: relative;
+}
+
+.planet-data {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  &__url {
+    text-decoration: underline;
+    cursor: pointer;
+    color: inherit;
+  }
 }
 </style>

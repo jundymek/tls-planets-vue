@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <h1 class="title">Recruitment task - planets</h1>
+  <div class="main-wrapper">
+    <h1 class="title">
+      <span class="title--first">Recruitment</span>
+      <span class="title--second"> task</span>
+      <span class="title--third"> - planets</span>
+    </h1>
     <loading
       :active="isLoading"
       :can-cancel="false"
@@ -14,6 +18,7 @@
         :xs="24"
         :sm="12"
         :md="8"
+        :lg="6"
         v-for="planet in planets"
         :key="planet.name"
       >
@@ -88,19 +93,40 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+.main-wrapper {
+  padding: 0 20px;
+}
 .title {
   margin: 20px 0;
   text-align: center;
-  color: red;
+  text-transform: uppercase;
+  font-size: 60px;
+  @media (max-width: $desktop) {
+    font-size: 40px;
+  }
+  @media (max-width: $phone) {
+    font-size: 22px;
+  }
+  &--first {
+    color: #B27C17;
+  }
+  &--second {
+    color: #93BF3A;
+  }
+  &--third {
+    color: #7faa8c;
+  }
 }
 .bg-purple-dark {
   background: #99a9bf;
 }
 .el-col {
-  padding: 10px 0;
+  padding: 10px 10px;
 }
 .el-pagination {
   text-align: center;
+  padding:40px 0
 }
 </style>
