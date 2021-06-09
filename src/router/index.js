@@ -5,10 +5,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/planets/:id',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
-  }
+  },
+
+  { path: '/planets', redirect: '/planets/1' }
+
 ]
 
 const router = new VueRouter({

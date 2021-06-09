@@ -20,7 +20,15 @@
         <Planet :planet="planet" />
       </el-col>
     </el-row>
-    <el-pagination background layout="prev, pager, next" :total="totalPages*10" @next-click="fetchPlanetsData(nextPage)" @prev-click="fetchPlanetsData(prevPage)" @current-change="handleCurrentChange">
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="totalPages * 10"
+      @next-click="fetchPlanetsData(nextPage)"
+      @prev-click="fetchPlanetsData(prevPage)"
+      @current-change="handleCurrentChange"
+      :current-page="parseInt($route.params.id)"
+    >
     </el-pagination>
   </div>
 </template>
@@ -64,11 +72,18 @@ export default {
       }
     },
     handleCurrentChange (val) {
-      this.fetchPlanetsData(val)
+      this.$router.push({ name: 'Home', params: { id: val } })
+      // this.fetchPlanetsData(val)
     }
   },
   async mounted () {
-    this.fetchPlanetsData(1)
+    console.log(this.$route.params.id)
+    this.fetchPlanetsData(this.$route.params.id)
+  },
+  watch: {
+    $route (to, from) {
+      this.fetchPlanetsData(this.$route.params.id)
+    }
   }
 }
 </script>
