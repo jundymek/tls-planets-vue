@@ -1,10 +1,10 @@
 <template>
   <el-card class="box-card">
     <div class="planet-header">
-      <h2 class="planet-header__title">{{ name }}</h2>
+      <h2 class="planet-header__title" :style="{'color': styles.color}">{{ name }}</h2>
       <p class="planet-header__subtitle">{{ climate }} planet</p>
-      <div class="planet-image-wrapper" >
-        <div class="planet-image" :style="{'background-image': 'url(' + require(`@/assets/images/${image}`) + ')'}"></div>
+      <div class="planet-image-wrapper" :style="{'border-color': styles.color}">
+        <div class="planet-image" :style="{'background-image': 'url(' + require(`@/assets/images/${styles.image}`) + ')'}"></div>
       </div>
     </div>
     <div
@@ -12,12 +12,13 @@
       :key="key"
       class="text item"
     >
-      {{ key }} - {{value}}
+      {{ key }} - <span :style="{'color': styles.color}">{{value}}</span>
     </div>
   </el-card>
 </template>
 
 <script>
+import { planetStyles } from './helpers'
 export default {
   props: ['planet'],
   data: function () {
@@ -31,22 +32,15 @@ export default {
     }
   },
   computed: {
-    image: function () {
-      const planetImages = {
-        arid: 'red.svg',
-        frozen: 'grey.svg',
-        temperate: ['blue.svg', 'earth.svg'][Math.floor(Math.random() * 2)],
-        'temperate, tropical': 'purple.svg',
-        murky: 'saturn.svg'
-
-      }
-      const commons = Object.keys(planetImages).filter((item) =>
+    styles: function () {
+      const commons = Object.keys(planetStyles).filter((item) =>
         this.climate === item
       )
       if (commons.length) {
-        return planetImages[commons[0]]
+        console.log(planetStyles[commons[0]].image)
+        return planetStyles[commons[0]]
       } else {
-        return 'earth.svg'
+        return planetStyles.murky
       }
     }
   }
@@ -81,15 +75,15 @@ export default {
 }
 
 .planet-image-wrapper {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   display: flex;
   justify-content: center;
   align-items: center;
   align-self: center;
   background-size: cover;
   border-radius: 50%;
-  border: 16px solid rgb(83, 78, 78);
+  border: 8px solid rgb(83, 78, 78);
   overflow: hidden;
   position: relative;
 }
