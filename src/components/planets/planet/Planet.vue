@@ -37,7 +37,6 @@ export default {
         this.climate === item
       )
       if (commons.length) {
-        console.log(planetStyles[commons[0]].image)
         return planetStyles[commons[0]]
       } else {
         return planetStyles.murky

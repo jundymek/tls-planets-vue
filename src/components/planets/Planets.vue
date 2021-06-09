@@ -4,16 +4,24 @@
     <loading
       :active="isLoading"
       :can-cancel="false"
-      :opacity=".5"
+      :opacity="0.5"
       background-color="#2e2a2a"
       color="#fff"
       :lock-scroll="true"
     />
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="12" :md="8" v-for="planet in planets" :key="planet.name">
+      <el-col
+        :xs="24"
+        :sm="12"
+        :md="8"
+        v-for="planet in planets"
+        :key="planet.name"
+      >
         <Planet :planet="planet" />
       </el-col>
     </el-row>
+    <el-pagination background layout="prev, pager, next" :total="totalPages*10" @next-click="fetchPlanetsData(nextPage)" @prev-click="fetchPlanetsData(prevPage)" @current-change="handleCurrentChange">
+    </el-pagination>
   </div>
 </template>
 
@@ -28,21 +36,39 @@ export default {
   data () {
     return {
       planets: null,
-      isLoading: false
+      isLoading: false,
+      totalPages: null,
+      currentPage: 1,
+      nextPage: null,
+      prevPage: null
+    }
+  },
+  methods: {
+    async fetchPlanetsData (pageNumber) {
+      try {
+        this.isLoading = true
+        const response = await axios.get(
+          `https://swapi.dev/api/planets/?page=${pageNumber}`
+        )
+        if (response.status === 200) {
+          console.log(response.data.count)
+          this.planets = response.data.results
+          this.totalPages = response.data.count / 10
+          this.nextPage = pageNumber + 1
+          this.prevPage = pageNumber - 1
+          this.isLoading = false
+        }
+      } catch (error) {
+        this.isLoading = false
+        console.log(error)
+      }
+    },
+    handleCurrentChange (val) {
+      this.fetchPlanetsData(val)
     }
   },
   async mounted () {
-    try {
-      this.isLoading = true
-      const response = await axios.get('https://swapi.dev/api/planets/')
-      if (response.status === 200) {
-        this.planets = response.data.results
-        this.isLoading = false
-      }
-    } catch (error) {
-      this.isLoading = false
-      console.log(error)
-    }
+    this.fetchPlanetsData(1)
   }
 }
 </script>
@@ -57,6 +83,9 @@ export default {
   background: #99a9bf;
 }
 .el-col {
-    padding: 10px 0;
-  }
+  padding: 10px 0;
+}
+.el-pagination {
+  text-align: center;
+}
 </style>
