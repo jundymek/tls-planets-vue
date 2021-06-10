@@ -208,4 +208,17 @@ export default {
 .el-scrollbar {
   background: $background-color;
 }
+
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+  background: $background-color;
+  border: 1px solid $text-color;
+  border-radius: 0;
+  color: $text-color ;
+  &:not(.disabled).active {
+    background: #93bf3a;
+  }
+}
+
 </style>
