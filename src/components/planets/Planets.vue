@@ -13,17 +13,14 @@
       color="#fff"
       :lock-scroll="true"
     />
-    <el-select v-model="selected" placeholder="Select">
+    <el-select v-model="selected" placeholder="Filter by climate" clearable>
       <el-option
-        v-for="item, index in filterOptions"
+        v-for="(item, index) in filterOptions"
         :key="index"
         :label="item.label"
         :value="item.value"
       >
         <span style="float: left">{{ item.label }}</span>
-        <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{
-          item.value
-        }}</span> -->
       </el-option>
     </el-select>
     <el-row :gutter="20">
@@ -32,13 +29,14 @@
         :sm="12"
         :md="8"
         :lg="6"
-        v-for="planet in planets"
+        v-for="planet in filteredPlanets"
         :key="planet.name"
       >
         <Planet :planet="planet" />
       </el-col>
     </el-row>
     <el-pagination
+      v-if="!isLoading"
       background
       layout="prev, pager, next"
       :total="totalPages * 10"
@@ -62,6 +60,7 @@ export default {
   data () {
     return {
       planets: null,
+      filteredPlanets: [],
       isLoading: false,
       totalPages: null,
       currentPage: 1,
@@ -81,11 +80,17 @@ export default {
         if (response.status === 200) {
           console.log(response.data.count)
           this.planets = response.data.results
+          this.filteredPlanets = this.planets
           this.totalPages = response.data.count / 10
           this.nextPage = pageNumber + 1
           this.prevPage = pageNumber - 1
           this.isLoading = false
-          this.filterOptions = this.getUniqueSelectData(response.data.results.map(item => ({ value: item.climate, label: item.climate })))
+          this.filterOptions = this.getUniqueSelectData(
+            response.data.results.map((item) => ({
+              value: item.climate,
+              label: item.climate
+            }))
+          )
         }
       } catch (error) {
         this.isLoading = false
@@ -96,8 +101,15 @@ export default {
       this.$router.push({ name: 'Home', params: { id: val } })
     },
     getUniqueSelectData (options) {
-      const unique = [...new Set(options.map((item) => JSON.stringify(item)))].map((string) => JSON.parse(string))q
+      const unique = [
+        ...new Set(options.map((item) => JSON.stringify(item)))
+      ].map((string) => JSON.parse(string))
       return unique
+    },
+    filterPlanets (climate) {
+      const filtered = this.planets.filter((item) => item.climate === climate)
+      this.filteredPlanets = filtered
+      console.log(filtered)
     }
   },
   async mounted () {
@@ -107,17 +119,25 @@ export default {
   watch: {
     $route (to, from) {
       this.fetchPlanetsData(this.$route.params.id)
+      this.selected = null
     },
     selected: function () {
       console.log(this.selected)
+      if (!this.selected) {
+        this.filteredPlanets = this.planets
+      } else {
+        this.filterPlanets(this.selected)
+      }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .main-wrapper {
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
 }
 .title {
   margin: 20px 0;
@@ -149,5 +169,43 @@ export default {
 .el-pagination {
   text-align: center;
   padding: 40px 0;
+}
+.el-select {
+  width: 200px;
+  align-self: flex-end;
+  border-radius: 0;
+}
+.el-input__inner {
+  background: $background-color;
+  color: $text-color;
+  border-radius: 0;
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: $text-color;
+}
+
+.el-select .el-input__inner:focus {
+  border-color: $text-color;
+}
+
+.el-select-dropdown {
+  border-radius: 0;
+  &__item {
+    color: $text-color;
+  }
+  &__item.selected {
+    color: #93bf3a;
+  }
+  &__item.hover {
+    background: unset;
+    &:hover {
+      color: rgb(121, 117, 117);
+    }
+  }
+}
+
+.el-scrollbar {
+  background: $background-color;
 }
 </style>
