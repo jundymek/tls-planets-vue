@@ -37,6 +37,7 @@
     </el-row>
     <el-pagination
       v-if="!isLoading"
+      :small="windowWidth < 768"
       background
       layout="prev, pager, next"
       :total="totalPages * 10"
@@ -67,7 +68,8 @@ export default {
       nextPage: null,
       prevPage: null,
       filterOptions: [],
-      selected: null
+      selected: null,
+      windowWidth: window.innerWidth
     }
   },
   methods: {
@@ -78,7 +80,6 @@ export default {
           `https://swapi.dev/api/planets/?page=${pageNumber}`
         )
         if (response.status === 200) {
-          console.log(response.data.count)
           this.planets = response.data.results
           this.filteredPlanets = this.planets
           this.totalPages = response.data.count / 10
@@ -109,11 +110,13 @@ export default {
     filterPlanets (climate) {
       const filtered = this.planets.filter((item) => item.climate === climate)
       this.filteredPlanets = filtered
-      console.log(filtered)
+    },
+    onResize () {
+      this.windowWidth = window.innerWidth
     }
   },
   async mounted () {
-    console.log(this.$route.params.id)
+    window.addEventListener('resize', this.onResize)
     this.fetchPlanetsData(this.$route.params.id)
   },
   watch: {
@@ -122,7 +125,6 @@ export default {
       this.selected = null
     },
     selected: function () {
-      console.log(this.selected)
       if (!this.selected) {
         this.filteredPlanets = this.planets
       } else {
@@ -174,6 +176,10 @@ export default {
   width: 200px;
   align-self: flex-end;
   border-radius: 0;
+  @media (max-width: $phone) {
+    align-self: center;
+    width: 100%;
+  }
 }
 .el-input__inner {
   background: $background-color;
