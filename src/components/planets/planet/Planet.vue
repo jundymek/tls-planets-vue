@@ -65,6 +65,7 @@ export default {
 <style lang="scss">
 .el-card {
   border-radius: 0;
+  border-color: $border-color;
   background: $background-color;
   color: $text-color;
   height: 100%;

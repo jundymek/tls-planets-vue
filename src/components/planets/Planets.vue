@@ -185,18 +185,20 @@ export default {
   background: $background-color;
   color: $text-color;
   border-radius: 0;
+  border-color: $border-color;
 }
 
 .el-select .el-input.is-focus .el-input__inner {
-  border-color: $text-color;
+  border-color: $border-color;
 }
 
 .el-select .el-input__inner:focus {
-  border-color: $text-color;
+  border-color: $border-color;
 }
 
 .el-select-dropdown {
   border-radius: 0;
+  border-color: $border-color;
   &__item {
     color: $text-color;
   }
@@ -219,7 +221,7 @@ export default {
 .el-pagination.is-background .btn-prev,
 .el-pagination.is-background .el-pager li {
   background: $background-color;
-  border: 1px solid $text-color;
+  border: 1px solid $border-color;
   border-radius: 0;
   color: $text-color ;
   &:not(.disabled).active {
