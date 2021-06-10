@@ -13,6 +13,19 @@
       color="#fff"
       :lock-scroll="true"
     />
+    <el-select v-model="selected" placeholder="Select">
+      <el-option
+        v-for="item, index in filterOptions"
+        :key="index"
+        :label="item.label"
+        :value="item.value"
+      >
+        <span style="float: left">{{ item.label }}</span>
+        <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{
+          item.value
+        }}</span> -->
+      </el-option>
+    </el-select>
     <el-row :gutter="20">
       <el-col
         :xs="24"
@@ -53,7 +66,9 @@ export default {
       totalPages: null,
       currentPage: 1,
       nextPage: null,
-      prevPage: null
+      prevPage: null,
+      filterOptions: [],
+      selected: null
     }
   },
   methods: {
@@ -70,6 +85,7 @@ export default {
           this.nextPage = pageNumber + 1
           this.prevPage = pageNumber - 1
           this.isLoading = false
+          this.filterOptions = this.getUniqueSelectData(response.data.results.map(item => ({ value: item.climate, label: item.climate })))
         }
       } catch (error) {
         this.isLoading = false
@@ -78,7 +94,10 @@ export default {
     },
     handleCurrentChange (val) {
       this.$router.push({ name: 'Home', params: { id: val } })
-      // this.fetchPlanetsData(val)
+    },
+    getUniqueSelectData (options) {
+      const unique = [...new Set(options.map((item) => JSON.stringify(item)))].map((string) => JSON.parse(string))q
+      return unique
     }
   },
   async mounted () {
@@ -88,13 +107,15 @@ export default {
   watch: {
     $route (to, from) {
       this.fetchPlanetsData(this.$route.params.id)
+    },
+    selected: function () {
+      console.log(this.selected)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 .main-wrapper {
   padding: 0 20px;
 }
@@ -110,10 +131,10 @@ export default {
     font-size: 22px;
   }
   &--first {
-    color: #B27C17;
+    color: #b27c17;
   }
   &--second {
-    color: #93BF3A;
+    color: #93bf3a;
   }
   &--third {
     color: #7faa8c;
@@ -127,6 +148,6 @@ export default {
 }
 .el-pagination {
   text-align: center;
-  padding:40px 0
+  padding: 40px 0;
 }
 </style>

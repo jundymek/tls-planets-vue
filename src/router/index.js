@@ -5,12 +5,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/planets/:id',
+    path: '/planets/page=:id',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
 
-  { path: '/planets', redirect: '/planets/1' }
+  { path: '/', redirect: '/planets/page=1' },
+  { path: '/planets', redirect: '/planets/page=1' }
 
 ]
 
