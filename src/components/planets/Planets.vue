@@ -104,7 +104,7 @@ export default {
     getUniqueSelectData (options) {
       const unique = [
         ...new Set(options.map((item) => JSON.stringify(item)))
-      ].map((string) => JSON.parse(string))
+      ].map((string) => JSON.parse(string)).sort((a, b) => a.label.localeCompare(b.label))
       return unique
     },
     filterPlanets (climate) {
