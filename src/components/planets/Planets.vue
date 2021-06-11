@@ -13,16 +13,7 @@
       color="#fff"
       :lock-scroll="true"
     />
-    <el-select v-model="selected" placeholder="Filter by climate" clearable>
-      <el-option
-        v-for="(item, index) in filterOptions"
-        :key="index"
-        :label="item.label"
-        :value="item.value"
-      >
-        <span style="float: left">{{ item.label }}</span>
-      </el-option>
-    </el-select>
+    <FilterSelect v-if="planets" :planets="planets" @filterPlanets="filterPlanets"/>
     <el-row :gutter="20">
       <el-col
         :xs="24"
@@ -43,7 +34,7 @@
       :total="totalPages * 10"
       @next-click="fetchPlanetsData(nextPage)"
       @prev-click="fetchPlanetsData(prevPage)"
-      @current-change="handleCurrentChange"
+      @current-change="handleChangeCurrentPage"
       :current-page="parseInt($route.params.id)"
     >
     </el-pagination>
@@ -53,11 +44,12 @@
 <script>
 import axios from 'axios'
 import Planet from './planet/Planet.vue'
+import FilterSelect from './filterSelect/FilterSelect.vue'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 export default {
   name: 'Planets',
-  components: { Planet, Loading },
+  components: { Planet, Loading, FilterSelect },
   data () {
     return {
       planets: null,
@@ -67,8 +59,6 @@ export default {
       currentPage: 1,
       nextPage: null,
       prevPage: null,
-      filterOptions: [],
-      selected: null,
       windowWidth: window.innerWidth
     }
   },
@@ -86,30 +76,22 @@ export default {
           this.nextPage = pageNumber + 1
           this.prevPage = pageNumber - 1
           this.isLoading = false
-          this.filterOptions = this.getUniqueSelectData(
-            response.data.results.map((item) => ({
-              value: item.climate,
-              label: item.climate
-            }))
-          )
         }
       } catch (error) {
         this.isLoading = false
         console.log(error)
       }
     },
-    handleCurrentChange (val) {
+    handleChangeCurrentPage (val) {
       this.$router.push({ name: 'Home', params: { id: val } })
     },
-    getUniqueSelectData (options) {
-      const unique = [
-        ...new Set(options.map((item) => JSON.stringify(item)))
-      ].map((string) => JSON.parse(string)).sort((a, b) => a.label.localeCompare(b.label))
-      return unique
-    },
     filterPlanets (climate) {
-      const filtered = this.planets.filter((item) => item.climate === climate)
-      this.filteredPlanets = filtered
+      if (!climate) {
+        this.filteredPlanets = this.planets
+      } else {
+        const filtered = this.planets.filter((item) => item.climate === climate)
+        this.filteredPlanets = filtered
+      }
     },
     onResize () {
       this.windowWidth = window.innerWidth
@@ -122,20 +104,12 @@ export default {
   watch: {
     $route (to, from) {
       this.fetchPlanetsData(this.$route.params.id)
-      this.selected = null
-    },
-    selected: function () {
-      if (!this.selected) {
-        this.filteredPlanets = this.planets
-      } else {
-        this.filterPlanets(this.selected)
-      }
     }
   }
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .main-wrapper {
   padding: 0 20px;
   display: flex;
@@ -171,46 +145,6 @@ export default {
 .el-pagination {
   text-align: center;
   padding: 40px 0;
-}
-.el-select {
-  width: 200px;
-  align-self: flex-end;
-  border-radius: 0;
-  @media (max-width: $phone) {
-    align-self: center;
-    width: 100%;
-  }
-}
-.el-input__inner {
-  background: $background-color;
-  color: $text-color;
-  border-radius: 0;
-  border-color: $border-color;
-}
-
-.el-select .el-input.is-focus .el-input__inner {
-  border-color: $border-color;
-}
-
-.el-select .el-input__inner:focus {
-  border-color: $border-color;
-}
-
-.el-select-dropdown {
-  border-radius: 0;
-  border-color: $border-color;
-  &__item {
-    color: $text-color;
-  }
-  &__item.selected {
-    color: #93bf3a;
-  }
-  &__item.hover {
-    background: unset;
-    &:hover {
-      color: rgb(121, 117, 117);
-    }
-  }
 }
 
 .el-scrollbar {
