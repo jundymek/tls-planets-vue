@@ -26,18 +26,7 @@
         <Planet :planet="planet" />
       </el-col>
     </el-row>
-    <el-pagination
-      v-if="!isLoading"
-      :small="windowWidth < 768"
-      background
-      layout="prev, pager, next"
-      :total="totalPages * 10"
-      @next-click="fetchPlanetsData(nextPage)"
-      @prev-click="fetchPlanetsData(prevPage)"
-      @current-change="handleChangeCurrentPage"
-      :current-page="parseInt($route.params.id)"
-    >
-    </el-pagination>
+    <Pagination v-if="!isLoading && totalPages > 1" :totalPages="totalPages" @fetchPlanetsData="fetchPlanetsData" />
   </div>
 </template>
 
@@ -45,21 +34,18 @@
 import axios from 'axios'
 import Planet from './planet/Planet.vue'
 import FilterSelect from './filterSelect/FilterSelect.vue'
+import Pagination from './pagination/Pagination.vue'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 export default {
   name: 'Planets',
-  components: { Planet, Loading, FilterSelect },
+  components: { Planet, Loading, FilterSelect, Pagination },
   data () {
     return {
       planets: null,
       filteredPlanets: [],
       isLoading: false,
-      totalPages: null,
-      currentPage: 1,
-      nextPage: null,
-      prevPage: null,
-      windowWidth: window.innerWidth
+      totalPages: null
     }
   },
   methods: {
@@ -73,17 +59,12 @@ export default {
           this.planets = response.data.results
           this.filteredPlanets = this.planets
           this.totalPages = response.data.count / 10
-          this.nextPage = pageNumber + 1
-          this.prevPage = pageNumber - 1
           this.isLoading = false
         }
       } catch (error) {
         this.isLoading = false
         console.log(error)
       }
-    },
-    handleChangeCurrentPage (val) {
-      this.$router.push({ name: 'Home', params: { id: val } })
     },
     filterPlanets (climate) {
       if (!climate) {
@@ -92,13 +73,9 @@ export default {
         const filtered = this.planets.filter((item) => item.climate === climate)
         this.filteredPlanets = filtered
       }
-    },
-    onResize () {
-      this.windowWidth = window.innerWidth
     }
   },
   async mounted () {
-    window.addEventListener('resize', this.onResize)
     this.fetchPlanetsData(this.$route.params.id)
   },
   watch: {
@@ -142,25 +119,9 @@ export default {
 .el-col {
   padding: 10px 10px;
 }
-.el-pagination {
-  text-align: center;
-  padding: 40px 0;
-}
 
 .el-scrollbar {
   background: $background-color;
-}
-
-.el-pagination.is-background .btn-next,
-.el-pagination.is-background .btn-prev,
-.el-pagination.is-background .el-pager li {
-  background: $background-color;
-  border: 1px solid $border-color;
-  border-radius: 0;
-  color: $text-color ;
-  &:not(.disabled).active {
-    background: #93bf3a;
-  }
 }
 
 </style>
