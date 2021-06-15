@@ -1,10 +1,12 @@
 <template>
   <header>
-    <h1 class="title">
-      <span class="title--first">Recruitment</span>
-      <span class="title--second"> task</span>
-      <span class="title--third"> - planets</span>
-    </h1>
+    <a href="/" class="link" title="Home">
+      <h1 class="title">
+        <span class="title--first">Recruitment</span>
+        <span class="title--second"> task</span>
+        <span class="title--third"> - planets</span>
+      </h1>
+    </a>
   </header>
 </template>
 
@@ -13,11 +15,15 @@ export default {}
 </script>
 
 <style lang="scss">
+.link {
+  text-decoration: none;
+}
 .title {
   margin: 20px 0;
   text-align: center;
   text-transform: uppercase;
   font-size: 60px;
+  font-weight: 400;
   @media (max-width: $desktop) {
     font-size: 40px;
   }

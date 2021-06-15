@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <Header />
-    <Planets />
+    <div class="content-wrapper">
+      <Header />
+      <Planets />
+    </div>
     <Footer />
   </div>
 </template>
@@ -20,3 +22,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.content-wrapper {
+  padding-bottom: 2.5rem;
+}
+</style>

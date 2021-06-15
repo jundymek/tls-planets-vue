@@ -90,27 +90,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.title {
-  margin: 20px 0;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 60px;
-  @media (max-width: $desktop) {
-    font-size: 40px;
-  }
-  @media (max-width: $phone) {
-    font-size: 22px;
-  }
-  &--first {
-    color: #b27c17;
-  }
-  &--second {
-    color: #93bf3a;
-  }
-  &--third {
-    color: #7faa8c;
-  }
-}
+
 .bg-purple-dark {
   background: #99a9bf;
 }

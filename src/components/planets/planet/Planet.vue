@@ -1,12 +1,12 @@
 <template>
   <a :href="url" class="box-card-url" :title="url">
     <el-card>
-      <div class="planet-header">
+      <header class="planet-header">
         <h2 class="planet-header__title" :style="{ color: styles.color }">
           {{ name }}
         </h2>
         <p class="planet-header__subtitle">{{ climate }} planet</p>
-      </div>
+      </header>
       <div class="planet-image-wrapper" :style="{ 'border-color': styles.color }">
         <div
           class="planet-image"
@@ -96,6 +96,7 @@ export default {
   flex-direction: column;
   &__title {
     margin: 0;
+    font-weight: 400;
   }
   &__subtitle {
     margin: 0px;

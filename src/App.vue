@@ -12,6 +12,8 @@
   padding: 0 10px;
   max-width: 1440px;
   margin: 0 auto;
+  position: relative;
+  min-height: calc(100vh - 2.5rem);
 }
 
 body {
