@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NotFound from '@/components/404/404.vue'
 
 Vue.use(VueRouter)
 
@@ -11,7 +12,8 @@ const routes = [
   },
 
   { path: '/', redirect: '/planets/page=1' },
-  { path: '/planets', redirect: '/planets/page=1' }
+  { path: '/planets', redirect: '/planets/page=1' },
+  { path: '*', component: NotFound }
 
 ]
 
