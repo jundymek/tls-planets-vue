@@ -5,13 +5,12 @@ import NotFound from '@/components/404/404.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/', redirect: '/planets/page=1' },
   {
     path: '/planets/page=:id',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/views/Home.vue')
   },
-
-  { path: '/', redirect: '/planets/page=1' },
   { path: '/planets', redirect: '/planets/page=1' },
   { path: '*', component: NotFound }
 
