@@ -3,7 +3,9 @@
     <Header />
     <div class="content">
       <p class="text">404 - page not found !!!</p>
-      <el-link type="primary" href="/">Back to main</el-link>
+      <router-link to="/">
+        <el-link type="primary">Back to main</el-link>
+      </router-link>
     </div>
   </div>
 </template>
@@ -36,4 +38,5 @@ export default {
   color: $text-color;
   font-size: 3em;
 }
+
 </style>

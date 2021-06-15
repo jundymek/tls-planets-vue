@@ -1,12 +1,12 @@
 <template>
   <header>
-    <a href="/" class="link" title="Home">
+    <router-link to="/" class="link" title="Home">
       <h1 class="title">
         <span class="title--first">Recruitment</span>
         <span class="title--second"> task</span>
         <span class="title--third"> - planets</span>
       </h1>
-    </a>
+    </router-link>
   </header>
 </template>
 
