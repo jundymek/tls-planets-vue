@@ -12,8 +12,7 @@
   padding: 0 10px;
   max-width: 1440px;
   margin: 0 auto;
-  position: relative;
-  min-height: calc(100vh - 2.5rem);
+  min-height: calc(100vh - 20px);
 }
 
 body {
@@ -21,5 +20,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  position: relative;
+  overflow-x: hidden;
 }
 </style>
