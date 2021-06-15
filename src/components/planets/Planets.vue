@@ -1,6 +1,5 @@
 <template>
   <div class="main-wrapper">
-    <Header />
     <loading
       :active="isLoading"
       :can-cancel="false"
@@ -28,7 +27,6 @@
 
 <script>
 import axios from 'axios'
-import Header from '@/components/header/Header.vue'
 import Planet from './planet/Planet.vue'
 import FilterSelect from './filterSelect/FilterSelect.vue'
 import Pagination from './pagination/Pagination.vue'
@@ -36,7 +34,7 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 export default {
   name: 'Planets',
-  components: { Header, Planet, Loading, FilterSelect, Pagination },
+  components: { Planet, Loading, FilterSelect, Pagination },
   data () {
     return {
       planets: null,
