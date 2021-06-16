@@ -69,6 +69,7 @@ export default {
   text-decoration: none;
 }
 .el-card {
+  font-family: 'Source Code Pro', monospace;
   border-radius: 0;
   border-color: $border-color;
   background: $background-color;
@@ -88,6 +89,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     min-height: 410px;
+    padding: 20px 10px;
   }
 }
 .planet-header {
@@ -132,7 +134,10 @@ export default {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: 13px;
+  @media (max-width: $iphoneSe) {
+    font-size: 12px;
+  }
   &__url {
     text-decoration: underline;
     cursor: pointer;

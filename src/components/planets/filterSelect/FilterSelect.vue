@@ -76,6 +76,9 @@ export default {
 .el-select-dropdown {
   border-radius: 0;
   border-color: $border-color;
+  &__list {
+    padding: 10px 0;
+  }
   &__item {
     color: $text-color;
   }

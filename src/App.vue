@@ -5,14 +5,15 @@
 </template>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway&family=Source+Code+Pro&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  min-height: calc(100vh - 20px);
+}
+
+* {
+  font-family: 'Source Code Pro', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 0 10px;
-  max-width: 1440px;
-  margin: 0 auto;
-  min-height: calc(100vh - 20px);
 }
 
 body {
@@ -20,7 +21,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  position: relative;
   overflow-x: hidden;
 }
 </style>

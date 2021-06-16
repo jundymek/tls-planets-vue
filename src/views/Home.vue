@@ -25,5 +25,11 @@ export default {
 <style lang="scss" scoped>
 .content-wrapper {
   padding-bottom: 2.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0px 10px 40px 10px;
+}
+.home {
+  position: relative;
 }
 </style>

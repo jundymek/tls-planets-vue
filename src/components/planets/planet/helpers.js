@@ -1,5 +1,5 @@
 export const planetStyles = {
-  arid: { image: 'red.svg', color: '#B27C17' },
+  arid: { image: 'red.svg', color: '#B29D01' },
   hot: { image: 'mars.svg', color: '#dbc922' },
   frozen: { image: 'grey.svg', color: '' },
   temperate: { image: 'earth.svg', color: '#93BF3A' },
