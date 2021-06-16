@@ -72,7 +72,7 @@ export default {
   font-family: 'Source Code Pro', monospace;
   border-radius: 0;
   border-color: $border-color;
-  background: $background-color;
+  background: transparent;
   color: $text-color;
   height: 100%;
   min-height: 450px;

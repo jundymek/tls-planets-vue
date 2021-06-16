@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway&family=Source+Code+Pro&display=swap');
 #app {
   min-height: calc(100vh - 20px);
 }
@@ -18,6 +18,8 @@
 
 body {
   background: $background-color;
+  background-image: url('../src/assets/images/sky_background1.jpeg');
+  background-blend-mode: color-burn;
   margin: 0;
   padding: 0;
   box-sizing: border-box;

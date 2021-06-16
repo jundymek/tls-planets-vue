@@ -59,7 +59,7 @@ export default {
   }
 }
 .el-input__inner {
-  background: $background-color;
+  background: transparent;
   color: $text-color;
   border-radius: 0;
   border-color: $border-color;
@@ -78,6 +78,7 @@ export default {
   border-color: $border-color;
   &__list {
     padding: 10px 0;
+    background: black;
   }
   &__item {
     color: $text-color;

@@ -50,7 +50,7 @@ export default {
 .el-pagination.is-background .btn-next,
 .el-pagination.is-background .btn-prev,
 .el-pagination.is-background .el-pager li {
-  background: $background-color;
+  background: transparent;
   border: 1px solid $border-color;
   border-radius: 0;
   color: $text-color;
