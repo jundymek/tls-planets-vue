@@ -30,5 +30,6 @@ export default {
 }
 .home {
   position: relative;
+  min-height: 100vh;
 }
 </style>

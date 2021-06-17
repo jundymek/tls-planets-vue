@@ -5,10 +5,7 @@
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway&family=Source+Code+Pro&display=swap');
-#app {
-  min-height: calc(100vh - 20px);
-}
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
 * {
   font-family: 'Source Code Pro', monospace;
@@ -24,5 +21,6 @@ body {
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  height:100%;
 }
 </style>

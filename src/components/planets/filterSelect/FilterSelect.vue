@@ -82,6 +82,7 @@ export default {
   }
   &__item {
     color: $text-color;
+    padding-left: 15px;
   }
   &__item.selected {
     color: #93bf3a;
@@ -92,5 +93,8 @@ export default {
       color: rgb(121, 117, 117);
     }
   }
+}
+.popper__arrow {
+  display: none !important;
 }
 </style>

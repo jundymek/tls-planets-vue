@@ -24,8 +24,7 @@ export default {}
 
 <style lang="scss">
 .header {
-  margin: 40px 0;
-  padding: 0 20px;
+  padding: 20px 20px;
   @media (max-width: $phone) {
     margin-bottom: 10px;
   }
@@ -35,7 +34,6 @@ export default {}
   }
 
   &__title {
-    margin: 20px 0;
     text-align: center;
     text-transform: uppercase;
     font-size: 30px;
