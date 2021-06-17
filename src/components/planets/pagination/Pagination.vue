@@ -28,7 +28,11 @@ export default {
       this.windowWidth = window.innerWidth
     },
     handleChangeCurrentPage (val) {
-      this.$router.push({ name: 'Home', params: { id: val } })
+      this.$router.push({ name: 'Home', params: { id: val } }).catch(error => {
+        if (error.name !== 'NavigationDuplicated') {
+          throw error
+        }
+      })
     }
   },
   mounted () {

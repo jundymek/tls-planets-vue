@@ -1,6 +1,6 @@
 <template>
-  <header class="header">
-    <router-link to="/" class="header__link" title="Home">
+  <header class="header" @click="resetData">
+    <router-link to="/" class="header__link" title="Home" >
       <h1 class="header__title">
         <div class="header__image-wrapper">
           <img
@@ -19,7 +19,15 @@
 </template>
 
 <script>
-export default {}
+import store from '../../store/index'
+export default {
+  methods: {
+    resetData () {
+      console.log('reset')
+      store.commit('setFilteredPlanets', store.state.allPlanets)
+    }
+  }
+}
 </script>
 
 <style lang="scss">

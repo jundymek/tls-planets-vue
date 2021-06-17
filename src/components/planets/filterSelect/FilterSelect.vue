@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import store from '@/store/index'
 export default {
   props: ['planets'],
   data () {
@@ -21,12 +22,14 @@ export default {
   },
   computed: {
     filterOptions: function (props) {
-      return this.getUniqueSelectData(
-        props.planets.map((item) => ({
-          value: item.climate,
-          label: item.climate
-        }))
-      )
+      if (store.state.allPlanets) {
+        return this.getUniqueSelectData(
+          store.state.allPlanets.map((item) => ({
+            value: item.climate,
+            label: item.climate
+          }))
+        )
+      } return null
     }
   },
   methods: {
@@ -43,6 +46,10 @@ export default {
     },
     planets: function () {
       this.selected = null
+    },
+    '$store.state.filteredPlanets': function () {
+      console.log('this.$store.state.filteredPlanets')
+      if (store.state.allPlanets === store.state.filteredPlanets) { this.selected = null }
     }
   }
 }

@@ -28,7 +28,6 @@
     <Pagination
       v-if="!isLoading && totalPages > 1"
       :totalPages="totalPages"
-      @fetchPlanetsData="fetchPlanetsData"
     />
   </div>
 </template>
@@ -40,6 +39,7 @@ import FilterSelect from './filterSelect/FilterSelect.vue'
 import Pagination from './pagination/Pagination.vue'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import store from '../../store/index'
 export default {
   name: 'Planets',
   components: { Planet, Loading, FilterSelect, Pagination },
@@ -47,20 +47,29 @@ export default {
     return {
       planets: [],
       filteredPlanets: [],
-      isLoading: false,
-      totalPages: null
+      isLoading: false
+      // totalPages: null
     }
   },
   computed: {
-
     currentPagePlanets: {
       get: function () {
-        return this.filteredPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 12) + 12)
+        return store.state.filteredPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 12) + 12)
       },
       set: function () {
-        return this.filteredPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 12) + 12)
+        store.state.filteredPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 12) + 12)
       }
 
+    },
+    totalPages: {
+      get: function () {
+        return store.state.filteredPlanets.length / 12
+      },
+      set: function () {
+        return store.state.filteredPlanets.length
+      }
+      // Or return basket.getters.fruitsCount
+      // (depends on your design decisions).
     }
   },
   methods: {
@@ -70,6 +79,8 @@ export default {
     async fetchAllPlanets (next) {
       const url = next ? next.replace('http', 'https') : 'https://swapi.dev/api/planets'
       let planets = this.planets
+      console.log(store.state.allPlanets)
+
       try {
         this.isLoading = true
         const response = await axios.get(url)
@@ -77,11 +88,15 @@ export default {
           this.totalPages = response.data.count / 12
           planets = [...this.planets, ...response.data.results]
           if (response.data.next === null) {
-            this.planets = planets
+            // this.planets = planets
             this.filteredPlanets = planets
+            store.commit('setFilteredPlanets', planets)
+            store.commit('setAllPlanets', planets)
             this.isLoading = false
           } else {
             this.planets = planets
+            store.commit('setAllPlanets', planets)
+            store.commit('setFilteredPlanets', planets)
             this.fetchAllPlanets(response.data.next)
           }
         }
@@ -93,34 +108,19 @@ export default {
         console.log(error)
       }
     },
-    async fetchPlanetsData (pageNumber) {
-      try {
-        this.isLoading = true
-        const response = await axios.get(
-          `https://swapi.dev/api/planets/?page=${pageNumber}`
-        )
-        if (response.status === 200) {
-          this.planets = response.data.results
-          this.filteredPlanets = this.planets
-          this.totalPages = response.data.count / 10
-          this.isLoading = false
-        }
-      } catch (error) {
-        this.isLoading = false
-        if (error.response.status === 404) {
-          this.$router.push('404')
-        }
-        console.log(error)
-      }
-    },
+
     filterPlanets (climate) {
+      console.log(store.state.totalPages)
       if (!climate) {
         this.filteredPlanets = this.planets
+        store.commit('setFilteredPlanets', store.state.allPlanets)
       } else {
-        const filtered = this.planets.filter(
+        const filtered = store.state.allPlanets.filter(
           (item) => item.climate === climate
         )
-        this.filteredPlanets = filtered
+        this.totalPages = filtered.length / 12
+        store.commit('setFilteredPlanets', filtered)
+        // this.filteredPlanets = filtered
         if (this.$route.params.id !== '1') {
           this.$router.push({ name: 'Home', params: { id: 1 } }).catch(error => {
             if (error.name !== 'NavigationDuplicated') {
@@ -133,17 +133,16 @@ export default {
   },
   async mounted () {
     this.fetchAllPlanets()
+    console.log(store.state.planets)
   },
   watch: {
-    $route (to, from) {
-      if (this.filteredPlanets.length !== this.planets.length) {
-        this.currentPagePlanets = this.filteredPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 10) + 12)
+    $route (to, from, next) {
+      console.log(to, from, next)
+      if (store.state.filteredPlanets.length !== store.state.allPlanets.length) {
+        this.currentPagePlanets = store.state.filteredPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 10) + 12)
       } else {
-        this.currentPagePlanets = this.planets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 12) + 12)
+        this.currentPagePlanets = store.state.allPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 12) + 12)
       }
-    },
-    filteredPlanets () {
-      this.totalPages = this.filteredPlanets.length / 12
     }
   }
 }
