@@ -7,7 +7,7 @@
     @next-click="$router.push({ name: 'Home', params: { id: parseInt($route.params.id) + 1 } })"
     @prev-click="$router.push({ name: 'Home', params: { id: parseInt($route.params.id) - 1 } })"
     @current-change="handleChangeCurrentPage"
-    :current-page="currentPage"
+    :current-page="parseInt($route.params.id)"
   >
   </el-pagination>
 </template>
