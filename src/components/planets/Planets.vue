@@ -26,7 +26,7 @@
       </el-col>
     </el-row>
     <Pagination
-      v-if="!isLoading && totalPages > 1"
+      v-if="!isLoading"
       :totalPages="totalPages"
       @fetchPlanetsData="fetchPlanetsData"
     />
@@ -64,11 +64,8 @@ export default {
     }
   },
   methods: {
-    async recurenceFetchPlanets () {
-
-    },
     async fetchAllPlanets (next) {
-      const url = next ? next.replace('http', 'https') : 'https://swapi.dev/api/planets'
+      const url = next ? next.replace('https://localhost:8000', 'https://swapi.dev') : 'https://swapi.dev/api/planets'
       let planets = this.planets
       try {
         this.isLoading = true

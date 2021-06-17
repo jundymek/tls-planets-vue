@@ -8,6 +8,7 @@
     @prev-click="$router.push({ name: 'Home', params: { id: parseInt($route.params.id) - 1 } })"
     @current-change="handleChangeCurrentPage"
     :current-page="parseInt($route.params.id)"
+    hide-on-single-page
   >
   </el-pagination>
 </template>
@@ -17,9 +18,6 @@ export default {
   props: { totalPages: Number },
   data () {
     return {
-      currentPage: parseInt(this.$route.params.id),
-      nextPage: parseInt(this.$route.params.id) + 1,
-      prevPage: parseInt(this.$route.params.id) - 1,
       windowWidth: window.innerWidth
     }
   },
@@ -28,7 +26,11 @@ export default {
       this.windowWidth = window.innerWidth
     },
     handleChangeCurrentPage (val) {
-      this.$router.push({ name: 'Home', params: { id: val } })
+      this.$router.push({ name: 'Home', params: { id: val } }).catch(error => {
+        if (error.name !== 'NavigationDuplicated') {
+          throw error
+        }
+      })
     }
   },
   mounted () {
