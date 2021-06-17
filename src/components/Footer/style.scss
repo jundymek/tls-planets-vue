@@ -1,0 +1,31 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $text-color;
+  padding: 10px 0;
+  border-top: 1px solid $border-color;
+  @media (max-width: $phone) {
+    font-size: 12px;
+  }
+
+  span {
+    text-align: center;
+  }
+}
+
+.el-link {
+  vertical-align: baseline;
+}
+
+.icons {
+  font-size: 10px;
+  .el-link {
+    font-size: 10px;
+  }
+}

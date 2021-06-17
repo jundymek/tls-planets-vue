@@ -1,0 +1,49 @@
+.el-select {
+  width: 200px;
+  align-self: flex-end;
+  border-radius: 0;
+  margin-bottom: 10px;
+  @media (max-width: $phone) {
+    align-self: center;
+    width: 100%;
+  }
+}
+.el-input__inner {
+  background: transparent;
+  color: $text-color;
+  border-radius: 0;
+  border-color: $border-color;
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: $border-color;
+}
+
+.el-select .el-input__inner:focus {
+  border-color: $border-color;
+}
+
+.el-select-dropdown {
+  border-radius: 0;
+  border-color: $border-color;
+  &__list {
+    padding: 10px 0;
+    background: black;
+  }
+  &__item {
+    color: $text-color;
+    padding-left: 15px;
+  }
+  &__item.selected {
+    color: #93bf3a;
+  }
+  &__item.hover {
+    background: unset;
+    &:hover {
+      color: rgb(121, 117, 117);
+    }
+  }
+}
+.popper__arrow {
+  display: none !important;
+}

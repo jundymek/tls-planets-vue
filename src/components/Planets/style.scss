@@ -1,0 +1,20 @@
+.main-wrapper {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.el-col {
+  padding: 10px 10px;
+}
+
+.el-scrollbar {
+  background: $background-color;
+}
+.error {
+  color: $text-color;
+  text-align: center;
+}

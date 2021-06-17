@@ -1,43 +1,7 @@
-<template>
-  <div class="main-wrapper">
-    <loading
-      :active="isLoading"
-      :can-cancel="false"
-      :opacity="0.5"
-      background-color="#2e2a2a"
-      color="#fff"
-      :lock-scroll="true"
-    />
-    <FilterSelect
-      v-if="planets"
-      :planets="planets"
-      @filterPlanets="filterPlanets"
-    />
-    <el-row :gutter="20">
-      <el-col
-        :xs="24"
-        :sm="12"
-        :md="8"
-        :lg="6"
-        v-for="planet in currentPagePlanets"
-        :key="planet.name"
-      >
-        <Planet :planet="planet" />
-      </el-col>
-    </el-row>
-    <Pagination
-      v-if="!isLoading"
-      :totalPages="totalPages"
-      @fetchPlanetsData="fetchPlanetsData"
-    />
-  </div>
-</template>
-
-<script>
 import axios from 'axios'
-import Planet from './planet/Planet.vue'
-import FilterSelect from './filterSelect/FilterSelect.vue'
-import Pagination from './pagination/Pagination.vue'
+import Planet from '@/components/Planet'
+import FilterSelect from '@/components/FilterSelect'
+import Pagination from '@/components/Pagination'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 export default {
@@ -48,11 +12,11 @@ export default {
       planets: [],
       filteredPlanets: [],
       isLoading: false,
-      totalPages: null
+      totalPages: null,
+      error: undefined
     }
   },
   computed: {
-
     currentPagePlanets: {
       get: function () {
         return this.filteredPlanets.slice((this.$route.params.id - 1) * 12, ((this.$route.params.id - 1) * 12) + 12)
@@ -87,27 +51,8 @@ export default {
         if (error.response.status === 404) {
           this.$router.push('404')
         }
-        console.log(error)
-      }
-    },
-    async fetchPlanetsData (pageNumber) {
-      try {
-        this.isLoading = true
-        const response = await axios.get(
-          `https://swapi.dev/api/planets/?page=${pageNumber}`
-        )
-        if (response.status === 200) {
-          this.planets = response.data.results
-          this.filteredPlanets = this.planets
-          this.totalPages = response.data.count / 10
-          this.isLoading = false
-        }
-      } catch (error) {
-        this.isLoading = false
-        if (error.response.status === 404) {
-          this.$router.push('404')
-        }
-        console.log(error)
+        this.error = error.message
+        console.log(error.message)
       }
     },
     filterPlanets (climate) {
@@ -144,23 +89,3 @@ export default {
     }
   }
 }
-</script>
-
-<style lang="scss">
-.main-wrapper {
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.el-col {
-  padding: 10px 10px;
-}
-
-.el-scrollbar {
-  background: $background-color;
-}
-</style>

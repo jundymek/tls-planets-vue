@@ -1,0 +1,20 @@
+.el-pagination {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.el-scrollbar {
+  background: $background-color;
+}
+
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+  background: transparent;
+  border: 1px solid $border-color;
+  border-radius: 0;
+  color: $text-color;
+  &:not(.disabled).active {
+    background: #93bf3a;
+  }
+}

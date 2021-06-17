@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import Planets from '@/components/planets/Planets'
-import Header from '@/components/header/Header.vue'
-import Footer from '@/components/footer/Footer.vue'
+import Planets from '@/components/Planets'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default {
   name: 'Home',

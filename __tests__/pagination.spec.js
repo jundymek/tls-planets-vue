@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Pagination from '@/components/planets/pagination/Pagination.vue'
+import Pagination from '@/components/Pagination'
 // import Vue from 'vue'
 // import ElementUI from 'element-ui'
 
