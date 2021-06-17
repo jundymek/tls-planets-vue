@@ -14,7 +14,6 @@
 <script>
 import store from '@/store/index'
 export default {
-  props: ['planets'],
   data () {
     return {
       selected: null
@@ -48,8 +47,10 @@ export default {
       this.selected = null
     },
     '$store.state.filteredPlanets': function () {
-      console.log('this.$store.state.filteredPlanets')
-      if (store.state.allPlanets === store.state.filteredPlanets) { this.selected = null }
+      if (store.state.allPlanets === store.state.filteredPlanets) {
+        this.selected = null
+        store.commit('setTotalPages', store.state.allPlanets.length / 12)
+      }
     }
   }
 }

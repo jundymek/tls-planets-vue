@@ -13,14 +13,16 @@
 </template>
 
 <script>
+import store from '@/store/index'
 export default {
-  props: { totalPages: Number },
   data () {
     return {
-      currentPage: parseInt(this.$route.params.id),
-      nextPage: parseInt(this.$route.params.id) + 1,
-      prevPage: parseInt(this.$route.params.id) - 1,
       windowWidth: window.innerWidth
+    }
+  },
+  computed: {
+    totalPages: function () {
+      return store.state.totalPages
     }
   },
   methods: {
@@ -45,7 +47,6 @@ export default {
 .el-pagination {
   text-align: center;
   padding: 40px 0;
-  margin-bottom: 20px;
 }
 
 .el-scrollbar {

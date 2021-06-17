@@ -11,14 +11,13 @@ export default new Vuex.Store({
   },
   mutations: {
     setFilteredPlanets (state, payload) {
-      console.log(payload)
-      // mutate state
       state.filteredPlanets = payload
-      state.totalPages = payload.length / 12
     },
     setAllPlanets (state, payload) {
-      // mutate state
       state.allPlanets = payload
+    },
+    setTotalPages (state, payload) {
+      state.totalPages = payload
     }
   },
   actions: {
@@ -27,6 +26,9 @@ export default new Vuex.Store({
     },
     setAllPlanets (context) {
       context.commit('setAllPlanets')
+    },
+    setTotalPages (context) {
+      context.commit('setTotalPages')
     }
   },
   modules: {

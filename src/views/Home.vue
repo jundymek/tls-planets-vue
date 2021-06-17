@@ -26,7 +26,7 @@ export default {
 .content-wrapper {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0px 10px 40px 10px;
+  padding: 0px 10px 140px 10px;
 }
 .home {
   position: relative;

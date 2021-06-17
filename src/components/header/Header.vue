@@ -1,6 +1,6 @@
 <template>
-  <header class="header" @click="resetData">
-    <router-link to="/" class="header__link" title="Home" >
+  <header class="header">
+    <a :href="`${publicPath}`"  class="header__link" title="Home" >
       <h1 class="header__title">
         <div class="header__image-wrapper">
           <img
@@ -14,17 +14,15 @@
           <span class="header__title-text--second"> planets</span>
         </div>
       </h1>
-    </router-link>
+    </a>
   </header>
 </template>
 
 <script>
-import store from '../../store/index'
 export default {
-  methods: {
-    resetData () {
-      console.log('reset')
-      store.commit('setFilteredPlanets', store.state.allPlanets)
+  data () {
+    return {
+      publicPath: process.env.BASE_URL
     }
   }
 }
