@@ -53,6 +53,7 @@ export default {
   width: 200px;
   align-self: flex-end;
   border-radius: 0;
+  margin-bottom: 10px;
   @media (max-width: $phone) {
     align-self: center;
     width: 100%;
