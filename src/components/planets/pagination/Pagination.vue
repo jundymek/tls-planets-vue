@@ -41,6 +41,7 @@ export default {
 .el-pagination {
   text-align: center;
   padding: 40px 0;
+  margin-bottom: 20px;
 }
 
 .el-scrollbar {
