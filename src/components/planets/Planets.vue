@@ -151,7 +151,7 @@ export default {
 
 <style lang="scss">
 .main-wrapper {
-  padding: 0 20px;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
 }
