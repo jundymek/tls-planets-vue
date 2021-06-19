@@ -19,13 +19,13 @@
 }
 
 body {
-  background: $background-color;
-  background-image: url("../src/assets/images/sky_background1.jpeg");
-  background-blend-mode: color-burn;
+  background-image: url("~@/assets/images/sky_background_optimized.jpeg");
+  background-color: $background-color;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
   height: 100%;
 }
+
 </style>
