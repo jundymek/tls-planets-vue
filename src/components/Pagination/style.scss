@@ -1,10 +1,9 @@
 .el-pagination {
   text-align: center;
   padding: 40px 0;
-}
-
-.el-scrollbar {
-  background: $background-color;
+  @media (max-width: $phone) {
+    padding-bottom: 0;
+  }
 }
 
 .el-pagination.is-background .btn-next,
