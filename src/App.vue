@@ -19,7 +19,7 @@
 }
 
 body {
-  background-image: url("~@/assets/images/sky_background_optimized.jpeg");
+  background-image: url("~@/assets/images/sky_background.jpeg");
   background-color: $background-color;
   margin: 0;
   padding: 0;

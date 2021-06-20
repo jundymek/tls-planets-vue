@@ -9,7 +9,7 @@
       :lock-scroll="true"
     />
     <FilterSelect
-      v-if="planets && !error"
+      v-if="planets && !error && !isLoading"
       :planets="planets"
       @filterPlanets="filterPlanets"
     />
